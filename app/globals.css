@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f8ff;
+  --foreground: #1d2340;
+  --muted: #6f7592;
+  --border: #e5e7f6;
+  --surface: #ffffff;
+  --surface-soft: #f5f4ff;
+  --primary: #5d6bff;
+  --primary-deep: #4451d8;
+  --primary-soft: #ececff;
+  --primary-glow: #b9c0ff;
+  --accent: #8b7cff;
+  --success: #1e8f5a;
+  --shadow: 0 16px 40px rgba(93, 107, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(139, 124, 255, 0.13), transparent 24%),
+    radial-gradient(circle at top right, rgba(93, 107, 255, 0.1), transparent 20%),
+    linear-gradient(180deg, #fcfcff 0%, var(--background) 100%);
+  color: var(--foreground);
+  font-family:
+    "Plus Jakarta Sans",
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.page-container {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.surface-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 2vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-deep);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--primary-deep);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.nav-search {
+  width: min(280px, 34vw);
+}
+
+.feed-tab-active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.feed-tab {
+  padding: 0.85rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.feed-tab:hover {
+  color: var(--foreground);
+}
+
+.prose-lite p {
+  margin: 0 0 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.prose-lite h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.35rem;
+}
+
+@keyframes auth-progress {
+  from {
+    width: 0%;
+    opacity: 0.75;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.auth-progress-bar {
+  animation: auth-progress 0.85s ease-out forwards;
+}

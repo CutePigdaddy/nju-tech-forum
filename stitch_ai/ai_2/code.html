@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>南大AI社区 - 首页</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1b6ca8',
+            surface: '#f9f9f9',
+            'surface-container-lowest': '#ffffff',
+            'surface-container-low': '#f3f3f4',
+            purple: {
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          borderRadius: {
+            'xl': '8px',
+            '2xl': '12px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styles">
+    body {
+      background-color: #f3f3f4;
+    }
+    .gradient-card {
+      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<!-- Logo & Nav -->
+<div class="flex items-center space-x-8">
+<div class="flex-shrink-0 flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
+              N
+            </div>
+<span class="font-bold text-xl text-gray-900">南大AI社区</span>
+</div>
+<nav class="hidden md:flex space-x-6">
+<a class="text-primary font-medium hover:text-primary/80" href="#">首页</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">分享</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">论坛</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">资源</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">关于</a>
+</nav>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center space-x-4 gap-2"><div class="relative flex items-center">
+<span class="absolute left-3 text-outline">
+<i class="fas fa-search"></i>
+</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="搜索话题、Prompt..." type="text"/>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-container hover:bg-outline-variant transition-colors overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3ChQCidjZP_024JYUKCTSDW6o8IEHI9ax_tdxwRkifNnRrVZ-vGKit-ZL7VRrIeSV_jSaNg0ORWlgLK_7uDR7v901CtDYoU51LKeoUGy3wGN8lW0UOlMocs7thXoJpOXCD289B3Y6kFV6Zlp2fNT1pXPznlBipkw6TQFt_G0dF9vx15WhSR18HbCTcaWCobjgv2YH0Z0P5xRZqkOFjDMBriTlzUXNQnTqLi1gf4-oKqXxkhKaVaJKsImqCxQ--_wdN3JWXNRcX-wu"/>
+</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary-container transition-colors">
+  发布
+</button></div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainLayout -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-8">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-64 flex-shrink-0 space-y-6">
+<!-- Topic Categories -->
+<div class="bg-white rounded-2xl shadow-sm p-4">
+<h3 class="font-semibold text-gray-900 mb-4 px-2">话题分类</h3>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center justify-between px-2 py-2 rounded-xl bg-purple-50 text-purple-700" href="#">
+<div class="flex items-center gap-3">
+<i class="fas fa-book-open w-5 text-center"></i>
+<span class="font-medium text-sm">学术提效</span>
+</div>
+<span class="text-xs bg-purple-100 px-2 py-0.5 rounded-full">128</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between px-2 py-2 rounded-xl hover:bg-gray-50 text-gray-700" href="#">
+<div class="flex items-center gap-3">
+<i class="fas fa-code w-5 text-center"></i>
+<span class="font-medium text-sm">代码编写</span>
+</div>
+<span class="text-xs bg-gray-100 px-2 py-0.5 rounded-full">85</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between px-2 py-2 rounded-xl hover:bg-gray-50 text-gray-700" href="#">
+<div class="flex items-center gap-3">
+<i class="fas fa-paint-brush w-5 text-center"></i>
+<span class="font-medium text-sm">AI 绘图</span>
+</div>
+<span class="text-xs bg-gray-100 px-2 py-0.5 rounded-full">64</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between px-2 py-2 rounded-xl hover:bg-gray-50 text-gray-700" href="#">
+<div class="flex items-center gap-3">
+<i class="fas fa-bolt w-5 text-center"></i>
+<span class="font-medium text-sm">综合技巧</span>
+</div>
+<span class="text-xs bg-gray-100 px-2 py-0.5 rounded-full">42</span>
+</a>
+</li>
+</ul>
+</div>
+<!-- CTA Card -->
+<div class="gradient-card rounded-2xl p-5 text-white shadow-md">
+<h3 class="font-bold text-lg mb-2">加入经验分享</h3>
+<p class="text-sm text-white/80 mb-4 leading-relaxed">
+          发布你的有效 Prompt，被复现即可获得声望，晋升为"AI 巫师"！
+        </p>
+<button class="w-full bg-white text-purple-700 font-medium py-2 rounded-xl text-sm hover:bg-gray-50 transition-colors">
+          查看声望规则
+        </button>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 min-w-0">
+<!-- Tab Navigation -->
+<div class="border-b border-gray-200 mb-6 flex gap-6">
+<a class="text-purple-600 font-medium py-3 border-b-2 border-purple-600" href="#">最热推荐</a>
+<a class="text-gray-500 hover:text-gray-800 font-medium py-3" href="#">最新发布</a>
+<a class="text-gray-500 hover:text-gray-800 font-medium py-3" href="#">复现榜</a>
+</div>
+<!-- Article List -->
+<div class="space-y-4">
+<!-- Card 1 -->
+<article class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-xl font-medium">学术提效</span>
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-xl font-medium">实验报告</span>
+<span class="px-2 py-1 bg-purple-50 text-purple-600 text-xs rounded-xl font-medium">DeepSeek</span>
+</div>
+<span class="text-gray-400 text-xs">2小时前</span>
+</div>
+<h2 class="text-lg font-bold text-gray-900 mb-3 hover:text-primary cursor-pointer">
+            如何用 DeepSeek-R1 写出满分实验报告？附完整提示词
+          </h2>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-6 h-6 rounded-full bg-purple-200 flex items-center justify-center text-xs text-purple-700 font-bold">物</div>
+<span class="text-sm text-gray-700">物理系学长</span>
+<span class="px-2 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded-full border border-gray-200">AI 巫师</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-gray-100">
+<div class="flex items-center gap-4 text-gray-500 text-sm">
+<button class="flex items-center gap-1 hover:text-gray-700"><i class="far fa-thumbs-up"></i> 132</button>
+<button class="flex items-center gap-1 hover:text-gray-700"><i class="far fa-comment"></i> 45</button>
+<span class="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-xl"><i class="far fa-check-circle"></i> 89 人已复现</span>
+</div>
+<a class="text-purple-600 text-sm font-medium hover:underline flex items-center gap-1" href="#">查看详情 <i class="fas fa-chevron-right text-xs"></i></a>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-purple-50 text-purple-600 text-xs rounded-xl font-medium">AI 绘图</span>
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-xl font-medium">Midjourney</span>
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-xl font-medium">机甲</span>
+</div>
+<span class="text-gray-400 text-xs">5小时前</span>
+</div>
+<h2 class="text-lg font-bold text-gray-900 mb-3 hover:text-primary cursor-pointer">
+            Midjourney 机甲设定稿生成的通用参数模板
+          </h2>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center text-xs text-white font-bold">动</div>
+<span class="text-sm text-gray-700">动画小编</span>
+<span class="px-2 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded-full border border-gray-200">PROMPT 猎人</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-gray-100">
+<div class="flex items-center gap-4 text-gray-500 text-sm">
+<button class="flex items-center gap-1 hover:text-gray-700"><i class="far fa-thumbs-up"></i> 85</button>
+<button class="flex items-center gap-1 hover:text-gray-700"><i class="far fa-comment"></i> 21</button>
+<span class="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-xl"><i class="far fa-check-circle"></i> 56 人已复现</span>
+</div>
+<a class="text-purple-600 text-sm font-medium hover:underline flex items-center gap-1" href="#">查看详情 <i class="fas fa-chevron-right text-xs"></i></a>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-xl font-medium">代码编写</span>
+<span class="px-2 py-1 bg-purple-50 text-purple-600 text-xs rounded-xl font-medium">Claude</span>
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-xl font-medium">Python</span>
+</div>
+<span class="text-gray-400 text-xs">1天前</span>
+</div>
+<h2 class="text-lg font-bold text-gray-900 mb-3 hover:text-primary cursor-pointer">
+            Claude 3.5 Sonnet：帮你把算法作业改成优雅的 Pythonic 风格
+          </h2>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-xs text-white font-bold">计</div>
+<span class="text-sm text-gray-700">计科新生</span>
+<span class="px-2 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded-full border border-gray-200">提效大师</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-gray-100">
+<div class="flex items-center gap-4 text-gray-500 text-sm">
+<button class="flex items-center gap-1 hover:text-gray-700"><i class="far fa-thumbs-up"></i> 210</button>
+<button class="flex items-center gap-1 hover:text-gray-700"><i class="far fa-comment"></i> 67</button>
+<span class="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-xl"><i class="far fa-check-circle"></i> 145 人已复现</span>
+</div>
+<a class="text-purple-600 text-sm font-medium hover:underline flex items-center gap-1" href="#">查看详情 <i class="fas fa-chevron-right text-xs"></i></a>
+</div>
+</article>
+</div>
+</main>
+<!-- END: MainContent -->
+</div>
+<!-- END: MainLayout -->
+</body></html>

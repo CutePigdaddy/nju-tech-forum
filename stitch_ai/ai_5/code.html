@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NJU AI Prompt Repository - User Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "surface": "#f9f9f9",
+                  "outline": "#717881",
+                  "on-secondary-fixed-variant": "#44474a",
+                  "surface-container-highest": "#e2e2e2",
+                  "secondary-container": "#e0e3e6",
+                  "on-tertiary": "#ffffff",
+                  "surface-tint": "#02629e",
+                  "surface-container-high": "#e8e8e8",
+                  "surface-bright": "#f9f9f9",
+                  "on-primary": "#ffffff",
+                  "surface-variant": "#e2e2e2",
+                  "secondary-fixed": "#e0e3e6",
+                  "inverse-primary": "#9acbff",
+                  "surface-container-low": "#f3f3f4",
+                  "on-tertiary-container": "#dbe9ff",
+                  "primary": "#1b6ca8",
+                  "outline-variant": "#c0c7d1",
+                  "on-surface": "#1a1c1c",
+                  "primary-container": "#1b6ca8",
+                  "tertiary-fixed-dim": "#b7c8e1",
+                  "secondary-fixed-dim": "#c4c7ca",
+                  "on-background": "#1a1c1c",
+                  "on-surface-variant": "#414750",
+                  "on-error-container": "#93000a",
+                  "on-secondary": "#ffffff",
+                  "inverse-on-surface": "#f0f1f1",
+                  "background": "#f9f9f9",
+                  "error-container": "#ffdad6",
+                  "on-primary-container": "#d9e9ff",
+                  "on-tertiary-fixed": "#0b1c30",
+                  "on-primary-fixed-variant": "#004a78",
+                  "on-primary-fixed": "#001d34",
+                  "on-secondary-fixed": "#191c1e",
+                  "tertiary-fixed": "#d3e4fe",
+                  "on-error": "#ffffff",
+                  "inverse-surface": "#2f3131",
+                  "secondary": "#5b5f61",
+                  "on-tertiary-fixed-variant": "#38485d",
+                  "tertiary": "#415167",
+                  "error": "#ba1a1a",
+                  "surface-dim": "#dadada",
+                  "primary-fixed-dim": "#9acbff",
+                  "surface-container": "#eeeeee",
+                  "primary-fixed": "#cfe5ff",
+                  "on-secondary-container": "#626567",
+                  "tertiary-container": "#596980",
+                  "surface-container-lowest": "#ffffff",
+                  textMain: '#1a1c1c',
+                  textMuted: '#414750',
+                  accentWarning: '#FEF3C7',
+                  accentWarningText: '#92400E',
+                  accentInfo: '#E0F2FE',
+                  accentInfoText: '#0369A1',
+                  successBg: '#DCFCE7',
+                  successText: '#166534',
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "8px",
+                  "2xl": "12px",
+                  "full": "9999px",
+                  "custom": "8px",
+          },
+          "spacing": {
+                  "sm": "1rem",
+                  "container-max": "1280px",
+                  "base": "4px",
+                  "xl": "4rem",
+                  "md": "1.5rem",
+                  "lg": "2.5rem",
+                  "xs": "0.5rem",
+                  "gutter": "24px"
+          },
+          "fontFamily": {
+                  "sans": ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    body {
+      background-color: #f3f3f4;
+      color: #1a1c1c;
+    }
+    .shadow-card {
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-800 antialiased min-h-screen flex flex-col">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<!-- Logo & Nav -->
+<div class="flex items-center space-x-8">
+<div class="flex-shrink-0 flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
+              N
+            </div>
+<span class="font-bold text-xl text-gray-900">南大AI社区</span>
+</div>
+<nav class="hidden md:flex space-x-6">
+<a class="text-gray-600 hover:text-gray-900" href="#">首页</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">分享</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">论坛</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">资源</a>
+<a class="text-gray-600 hover:text-gray-900" href="#">关于</a>
+</nav>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center space-x-4 gap-2"><div class="relative flex items-center">
+<span class="absolute left-3 text-outline">
+<i class="fas fa-search"></i>
+</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="搜索话题、Prompt..." type="text"/>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-container hover:bg-outline-variant transition-colors overflow-hidden border-2 border-primary">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVsbYPByKXuZKs74Btcn3dgrKgxgNv8v0k4pHiTn8tRsxNe4oJ5Bj0Y3U4SHAx1vu9mFulv381J44UzliJG3V1lvkB8dbgSqasTfOYlBTuWD_-3LeyO-kPqVydB_bSOAwp8pS6o2uR5rUQz2-DvuuzH9Q4stdOV8y7P1JJuGBqffcWzyk6cFBtxPhfGnzeWZGV3SovJq1RVNsqt23_IITjlG1HrqLs39piMHRQLWjQfAgpScJGAN4xa3wor35NZrQx0nLYCdBIGoV"/>
+</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary-container transition-colors">
+  发布
+</button></div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+<div class="max-w-4xl mx-auto space-y-6">
+<!-- BEGIN: Profile Header Card -->
+<div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-card relative">
+<button class="absolute top-8 right-8 px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-textMuted hover:bg-gray-50 flex items-center gap-2 transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              编辑资料
+            </button>
+<div class="flex items-start gap-6">
+<div class="w-24 h-24 rounded-full bg-orange-100 flex-shrink-0 overflow-hidden border-4 border-white shadow-sm">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFVsbYPByKXuZKs74Btcn3dgrKgxgNv8v0k4pHiTn8tRsxNe4oJ5Bj0Y3U4SHAx1vu9mFulv381J44UzliJG3V1lvkB8dbgSqasTfOYlBTuWD_-3LeyO-kPqVydB_bSOAwp8pS6o2uR5rUQz2-DvuuzH9Q4stdOV8y7P1JJuGBqffcWzyk6cFBtxPhfGnzeWZGV3SovJq1RVNsqt23_IITjlG1HrqLs39piMHRQLWjQfAgpScJGAN4xa3wor35NZrQx0nLYCdBIGoV"/>
+</div>
+<div class="space-y-3 pt-2">
+<div>
+<h1 class="text-2xl font-bold text-textMain">NJU小蓝鲸</h1>
+<p class="text-textMuted text-sm mt-1">南京大学 · 计算机科学与技术系</p>
+</div>
+<p class="text-sm text-gray-600 leading-relaxed max-w-2xl">
+                  简介：探索 AI 在科研与开发中的提效边界。专注于 Prompt 工程与本地大模型部署实践，欢迎交流探讨。
+                </p>
+<div class="flex gap-4 pt-4 flex-wrap">
+<!-- Metric Card: Current Title -->
+<div class="bg-accentWarning/50 border border-yellow-200 rounded-xl p-4 flex items-center gap-4 min-w-[200px]">
+<div class="p-2 bg-yellow-100 rounded-full text-yellow-600">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<p class="text-xs text-accentWarningText font-medium">当前头衔</p>
+<p class="text-lg font-bold text-accentWarningText">提效大师 (LV.3)</p>
+</div>
+</div>
+<!-- Metric Card: Reputation -->
+<div class="bg-accentInfo/50 border border-blue-100 rounded-xl p-4 flex items-center gap-4 min-w-[200px]">
+<div class="p-2 bg-blue-100 rounded-full text-blue-600">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<p class="text-xs text-accentInfoText font-medium">声望值</p>
+<p class="text-lg font-bold text-accentInfoText">345 / 500</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Profile Header Card -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- BEGIN: Left Column - My Publications -->
+<div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-card">
+<h3 class="text-lg font-bold text-textMain mb-6 flex items-center gap-2">
+<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                我的发布 (12)
+              </h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-2">
+<span class="text-gray-400 mt-1">•</span>
+<a class="text-textMain hover:text-primary hover:underline leading-relaxed" href="#">PyTorch分布式训练：从入门到实践指南</a>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-gray-400 mt-1">•</span>
+<a class="text-textMain hover:text-primary hover:underline leading-relaxed" href="#">论文润色 Prompt 最佳实践，拒稿率下降50%</a>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-gray-400 mt-1">•</span>
+<a class="text-textMain hover:text-primary hover:underline leading-relaxed" href="#">Claude 3 Opus 在文献综述中的高级用法</a>
+</li>
+</ul>
+<div class="mt-6">
+<a class="text-sm text-primary hover:underline font-medium" href="#">查看全部发布...</a>
+</div>
+</div>
+<!-- END: Left Column - My Publications -->
+<!-- BEGIN: Right Column - Recent Activity -->
+<div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-card">
+<h3 class="text-lg font-bold text-textMain mb-6 flex items-center gap-2">
+<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                近期声望记录
+              </h3>
+<ul class="space-y-5">
+<li class="flex items-center justify-between">
+<span class="text-sm text-gray-700">《PyTorch分布式...》获已被复现</span>
+<span class="px-2.5 py-1 bg-successBg text-successText text-xs font-bold rounded-xl">+10</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="text-sm text-gray-700">每日登录签到</span>
+<span class="px-2.5 py-1 bg-successBg text-successText text-xs font-bold rounded-xl">+1</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="text-sm text-gray-700">帖子被点赞 (x3)</span>
+<span class="px-2.5 py-1 bg-successBg text-successText text-xs font-bold rounded-xl">+6</span>
+</li>
+</ul>
+<div class="mt-8 pt-4 border-t border-gray-100">
+<p class="text-sm text-gray-500">系统提示：再获得 155 声望即可晋升"AI巫师"</p>
+</div>
+</div>
+<!-- END: Right Column - Recent Activity -->
+</div>
+</div>
+</main>
+<!-- END: MainContent -->
+</body></html>
