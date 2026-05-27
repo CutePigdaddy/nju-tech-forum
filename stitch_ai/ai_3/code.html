@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>南大AI社区 - 经验分享</title>
+<!-- Font Setup -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Custom Configuration -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary-container": "#596980",
+                "on-error": "#ffffff",
+                "primary-fixed": "#cfe5ff",
+                "on-surface-variant": "#414750",
+                "error-container": "#ffdad6",
+                "surface-container-highest": "#e2e2e2",
+                "outline": "#717881",
+                "surface-container-high": "#e8e8e8",
+                "secondary-fixed": "#e0e3e6",
+                "primary": "#005387",
+                "secondary-container": "#e0e3e6",
+                "outline-variant": "#c0c7d1",
+                "surface": "#f9f9f9",
+                "surface-container-low": "#f3f3f4",
+                "on-tertiary-container": "#dbe9ff",
+                "background": "#f9f9f9",
+                "surface-variant": "#e2e2e2",
+                "on-error-container": "#93000a",
+                "on-secondary-container": "#626567",
+                "on-secondary-fixed": "#191c1e",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-fixed-dim": "#9acbff",
+                "on-surface": "#1a1c1c",
+                "secondary": "#5b5f61",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "on-primary-fixed-variant": "#004a78",
+                "inverse-primary": "#9acbff",
+                "secondary-fixed-dim": "#c4c7ca",
+                "inverse-surface": "#2f3131",
+                "surface-bright": "#f9f9f9",
+                "primary-container": "#1b6ca8",
+                "on-tertiary-fixed": "#0b1c30",
+                "error": "#ba1a1a",
+                "on-background": "#1a1c1c",
+                "surface-container": "#eeeeee",
+                "tertiary-fixed": "#d3e4fe",
+                "on-primary": "#ffffff",
+                "tertiary": "#415167",
+                "surface-tint": "#02629e",
+                "on-secondary-fixed-variant": "#44474a",
+                "on-primary-fixed": "#001d34",
+                "inverse-on-surface": "#f0f1f1",
+                "surface-dim": "#dadada",
+                "on-tertiary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-container": "#d9e9ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "24px",
+                "sm": "1rem",
+                "lg": "2.5rem",
+                "xl": "4rem",
+                "md": "1.5rem",
+                "container-max": "1280px",
+                "xs": "0.5rem",
+                "base": "4px"
+        },
+        "fontFamily": {
+                "sans": [
+                        "Plus Jakarta Sans",
+                        "sans-serif"
+                ]
+        }
+},
+    },
+  }
+</script>
+<style data-purpose="custom-styles">
+    body {
+      background-color: #f3f3f4;
+    }
+    .filter-btn {
+      @apply px-4 py-1.5 rounded-lg border border-gray-200 text-sm text-gray-600 hover:border-primary hover:text-primary transition-colors;
+    }
+
+    .filter-btn.active {
+      @apply bg-primary-fixed text-on-primary-container border-primary-fixed;
+    }
+
+    .keyword-tag {
+      @apply px-2 py-1 bg-primary-fixed text-on-primary-container text-xs rounded-lg border border-transparent;
+    }
+  </style>
+</head>
+<body class="font-sans text-on-surface antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="bg-surface-container-lowest border-b border-surface-variant sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<!-- Logo & Nav -->
+<div class="flex items-center space-x-8">
+<div class="flex-shrink-0 flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold text-lg">
+              N
+            </div>
+<span class="font-bold text-xl text-on-surface">南大AI社区</span>
+</div>
+<nav class="hidden md:flex space-x-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">首页</a>
+<a class="text-primary font-medium hover:text-primary/80 transition-colors" href="#">分享</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">论坛</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">资源</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">关于</a>
+</nav>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center space-x-4 gap-2"><div class="relative flex items-center">
+<span class="absolute left-3 text-outline">
+<i class="fas fa-search"></i>
+</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="搜索话题、Prompt..." type="text"/>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-container hover:bg-outline-variant transition-colors overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3ChQCidjZP_024JYUKCTSDW6o8IEHI9ax_tdxwRkifNnRrVZ-vGKit-ZL7VRrIeSV_jSaNg0ORWlgLK_7uDR7v901CtDYoU51LKeoUGy3wGN8lW0UOlMocs7thXoJpOXCD289B3Y6kFV6Zlp2fNT1pXPznlBipkw6TQFt_G0dF9vx15WhSR18HbCTcaWCobjgv2YH0Z0P5xRZqkOFjDMBriTlzUXNQnTqLi1gf4-oKqXxkhKaVaJKsImqCxQ--_wdN3JWXNRcX-wu"/>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
+  发布
+</button></div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent Area -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-purpose="content-area">
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-8 border border-surface-variant">
+<!-- Page Header & Description -->
+<div class="mb-10" data-purpose="page-header">
+<h1 class="text-3xl lg:text-4xl font-bold text-on-surface mb-4 tracking-tight">AI 学习经验与 Prompt 范式库</h1>
+<p class="text-on-surface-variant leading-relaxed max-w-4xl text-[15px]">
+              沉淀南大真实的学术提效与代码开发 AI 应用案例。涵盖大模型本地部署、学术文献分析提示词及各学科场景应用指南，助力校内知识共享。
+            </p>
+<div class="flex items-center gap-4 mt-5 text-sm text-outline">
+<span class="flex items-center gap-1.5 text-primary">
+<i class="far fa-check-circle"></i>
+                已验证案例: 3,204
+              </span>
+<span class="text-surface-variant">|</span>
+<span>最近更新: Today</span>
+</div>
+</div>
+<!-- Filters & Sort -->
+<div class="mb-8 space-y-6" data-purpose="filters">
+<!-- Keyword Filters -->
+<div class="flex items-center gap-3 flex-wrap">
+<span class="text-sm font-medium text-on-surface-variant mr-2">关键词过滤:</span>
+<button class="filter-btn active">全部</button>
+<button class="filter-btn">机器学习</button>
+<button class="filter-btn">深度学习</button>
+<button class="filter-btn">自然语言处理</button>
+<button class="filter-btn">计算机视觉</button>
+<button class="filter-btn">工具推荐</button>
+</div>
+<!-- List Header with Sort -->
+<div class="flex items-center justify-between border-b border-surface-variant pb-3 mt-8">
+<h3 class="text-on-surface-variant text-sm font-medium">当前筛选结果</h3>
+<div class="flex gap-4 text-sm">
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">最新发表</button>
+<button class="text-primary font-medium flex items-center gap-1">
+                  最多复现
+                  <i class="fas fa-arrow-down text-xs"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- BEGIN: Case List -->
+<div class="space-y-4" data-purpose="case-list">
+<!-- List Item 1 -->
+<article class="p-6 rounded-2xl border border-surface-variant hover:border-primary/30 hover:shadow-sm transition-all bg-surface-container-lowest relative group">
+<div class="pr-24"> <!-- Space for right metrics -->
+<h2 class="text-xl font-bold text-on-surface mb-2 group-hover:text-primary transition-colors cursor-pointer">
+                  PyTorch分布式训练：从入门到实践指南
+                </h2>
+<div class="flex items-center gap-2 text-sm text-outline mb-3">
+<span class="font-medium text-on-surface-variant">张博士</span>
+<span>·</span>
+<span>2小时前</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4 line-clamp-2">
+                  详细解析DDP(Distributed Data Parallel)的原理与实现，解决大模型训练中的显存瓶颈与通信开销问题，包含南大集群实操记录。
+                </p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-outline mr-1">Keywords:</span>
+<span class="keyword-tag">深度学习</span>
+<span class="keyword-tag">工具推荐</span>
+</div>
+</div>
+<!-- Metrics (Right aligned) -->
+<div class="absolute right-6 top-6 flex flex-col items-end gap-3 text-sm text-outline">
+<span class="flex items-center gap-1.5" title="Views">
+<i class="far fa-eye"></i> 1.2k
+                </span>
+<span class="flex items-center gap-1.5" title="Likes">
+<i class="far fa-thumbs-up"></i> 45
+                </span>
+<span class="flex items-center gap-1.5" title="Comments">
+<i class="far fa-comment"></i> 12
+                </span>
+</div>
+</article>
+<!-- List Item 2 -->
+<article class="p-6 rounded-2xl border border-surface-variant hover:border-primary/30 hover:shadow-sm transition-all bg-surface-container-lowest relative group">
+<div class="pr-24">
+<h2 class="text-xl font-bold text-on-surface mb-2 group-hover:text-primary transition-colors cursor-pointer">
+                  2024最新：大语言模型(LLM)本地部署踩坑实录
+                </h2>
+<div class="flex items-center gap-2 text-sm text-outline mb-3">
+<span class="font-medium text-on-surface-variant">李研</span>
+<span>·</span>
+<span>昨天</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4 line-clamp-2">
+                  基于南大实验室环境，记录Llama 3与Qwen 1.5的本地部署全过程，包含环境配置、量化技术(vLLM/Ollama)的对比评估。
+                </p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-outline mr-1">Keywords:</span>
+<span class="keyword-tag">自然语言处理</span>
+</div>
+</div>
+<!-- Metrics -->
+<div class="absolute right-6 top-6 flex flex-col items-end gap-3 text-sm text-outline">
+<span class="flex items-center gap-1.5">
+<i class="far fa-eye"></i> 856
+                </span>
+<span class="flex items-center gap-1.5">
+<i class="far fa-thumbs-up"></i> 32
+                </span>
+<span class="flex items-center gap-1.5">
+<i class="far fa-comment"></i> 8
+                </span>
+</div>
+</article>
+<!-- List Item 3 -->
+<article class="p-6 rounded-2xl border border-surface-variant hover:border-primary/30 hover:shadow-sm transition-all bg-surface-container-lowest relative group">
+<div class="pr-24">
+<h2 class="text-xl font-bold text-on-surface mb-2 group-hover:text-primary transition-colors cursor-pointer">
+                  经典回顾: Transformer架构核心机制推导
+                </h2>
+<div class="flex items-center gap-2 text-sm text-outline mb-3">
+<span class="font-medium text-on-surface-variant">王助教</span>
+<span>·</span>
+<span>3天前</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4 line-clamp-2">
+                  从Self-Attention公式推导到Multi-Head Attention的代码实现，带你重温NLP领域的奠基之作，附带详尽的学习笔记与参考代码库。
+                </p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-outline mr-1">Keywords:</span>
+<span class="keyword-tag">自然语言处理</span>
+<span class="keyword-tag">深度学习</span>
+</div>
+</div>
+<!-- Metrics -->
+<div class="absolute right-6 top-6 flex flex-col items-end gap-3 text-sm text-outline">
+<span class="flex items-center gap-1.5">
+<i class="far fa-eye"></i> 2.5k
+                </span>
+<span class="flex items-center gap-1.5">
+<i class="far fa-thumbs-up"></i> 128
+                </span>
+<span class="flex items-center gap-1.5">
+<i class="far fa-comment"></i> 45
+                </span>
+</div>
+</article>
+</div>
+<!-- END: Case List -->
+<!-- Pagination -->
+<div class="mt-10 flex justify-center pb-4">
+<nav class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-surface-variant text-outline hover:bg-surface-container-low disabled:opacity-50 transition-colors" disabled="">
+<i class="fas fa-chevron-left text-xs"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary font-medium text-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-surface-variant text-on-surface-variant hover:bg-surface-container-low font-medium text-sm transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-surface-variant text-on-surface-variant hover:bg-surface-container-low font-medium text-sm transition-colors">3</button>
+<span class="text-outline px-1">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-surface-variant text-outline hover:bg-surface-container-low transition-colors">
+<i class="fas fa-chevron-right text-xs"></i>
+</button>
+</nav>
+</div>
+</div>
+</div>
+<!-- END: Main Content Area -->
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-surface-variant mt-12 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-outline">
+<p>© 2024 南大AI社区. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
