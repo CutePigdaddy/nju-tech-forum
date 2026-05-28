@@ -43,6 +43,10 @@ export function CreatePostForm() {
         reproductions: 0,
         favorites: 0
       },
+      body: content
+        .split(/\n{2,}/)
+        .map((item) => ({ type: "paragraph" as const, content: item.trim() }))
+        .filter((item) => item.content),
       promptCard: {
         title: promptTitle,
         model: promptModel || "通用大模型",

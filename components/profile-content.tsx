@@ -160,6 +160,11 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
             level: mergedProfile.level
           },
           stats: item.stats,
+          body:
+            item.body ??
+            item.content
+              .split(/\n{2,}/)
+              .map((content) => ({ type: "paragraph" as const, content })),
           promptCard: item.promptCard
         })
       )

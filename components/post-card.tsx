@@ -3,7 +3,7 @@ import type { DemoPost } from "@/lib/mock-data";
 
 export function PostCard({ post }: { post: DemoPost }) {
   return (
-    <article className="surface-card border border-white/80 p-5 transition hover:border-[var(--primary-glow)] hover:shadow-[0_20px_44px_rgba(93,107,255,0.12)] md:p-6">
+    <article className="surface-card border border-white/80 p-5 transition hover:border-[var(--primary-glow)] hover:shadow-[0_24px_50px_rgba(93,107,255,0.12)] md:p-6">
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag, index) => (
@@ -21,28 +21,29 @@ export function PostCard({ post }: { post: DemoPost }) {
             </span>
           ))}
         </div>
-        <span className="pt-1 text-xs text-[var(--muted)]">{post.publishedAt}</span>
+        <span className="pt-1 text-xs font-medium text-[var(--muted)]">{post.publishedAt}</span>
       </div>
 
       <Link
         href={`/post/${post.id}`}
-        className="text-[1.15rem] font-bold leading-8 transition hover:text-[var(--primary)]"
+        className="text-[1.32rem] font-bold leading-[1.45] tracking-[-0.02em] transition hover:text-[var(--primary)]"
       >
         {post.title}
       </Link>
-      <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{post.excerpt}</p>
+      <p className="mt-3 text-[0.97rem] leading-8 text-[var(--muted)]">{post.excerpt}</p>
 
-      <div className="mt-5 flex flex-col gap-4 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:justify-between">
+      <div className="mt-5 flex flex-col gap-4 border-t border-[var(--border)] pt-4 md:flex-row md:items-end md:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary-soft)] text-sm font-bold text-[var(--primary-deep)]">
             {post.author.name.slice(0, 1)}
           </div>
-          <div className="flex flex-wrap items-center gap-2 text-sm">
+          <div className="flex flex-col gap-1 text-sm">
             <span className="font-medium text-[var(--foreground)]">{post.author.name}</span>
-            <span className="rounded-full border border-[var(--border)] bg-[#fafaff] px-2 py-0.5 text-[10px] font-semibold tracking-[0.02em] text-[var(--muted)]">
-              {post.author.level}
-            </span>
+            <span className="text-xs text-[var(--muted)]">{post.author.department}</span>
           </div>
+          <span className="rounded-full border border-[var(--border)] bg-[#fafaff] px-2 py-0.5 text-[10px] font-semibold tracking-[0.02em] text-[var(--muted)]">
+            {post.author.level}
+          </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--muted)]">

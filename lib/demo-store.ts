@@ -1,4 +1,10 @@
-import { profiles, posts, type DemoPost, type DemoProfile } from "@/lib/mock-data";
+import {
+  defaultComments,
+  profiles,
+  posts,
+  type DemoPost,
+  type DemoProfile
+} from "@/lib/mock-data";
 import {
   REPUTATION_REWARDS,
   getReputationLevel,
@@ -30,6 +36,7 @@ export type DemoCreatedPost = {
     prompt: string;
     notes: string;
   };
+  body?: DemoPost["body"];
 };
 
 type DemoPostStats = {
@@ -359,7 +366,7 @@ export function setProfileOverride(
 
 export function getPostComments(postId: string): DemoComment[] {
   const parsed = readStorageObject<Record<string, DemoComment[]>>(POST_COMMENTS_KEY, {});
-  return parsed[postId] ?? [];
+  return [...(parsed[postId] ?? []), ...(defaultComments[postId] ?? [])];
 }
 
 export function addPostComment(comment: DemoComment) {
@@ -441,6 +448,11 @@ export function mergeCreatedPost(createdPost: DemoCreatedPost): DemoPost {
       ...createdPost.stats,
       ...stats
     },
+    body:
+      createdPost.body ??
+      createdPost.content
+        .split(/\n{2,}/)
+        .map((content) => ({ type: "paragraph", content }) as const),
     promptCard: createdPost.promptCard
   };
 }

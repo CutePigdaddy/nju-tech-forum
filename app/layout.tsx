@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MainNav } from "@/components/main-nav";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-plus-jakarta"
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex"
 });
 
 const jetBrainsMono = JetBrains_Mono({
@@ -26,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body
-        className={`${plusJakartaSans.variable} ${jetBrainsMono.variable} app-shell`}
-      >
+      <body className={`${ibmPlexSans.variable} ${jetBrainsMono.variable} app-shell`}>
         <Suspense fallback={null}>
           <MainNav />
         </Suspense>
