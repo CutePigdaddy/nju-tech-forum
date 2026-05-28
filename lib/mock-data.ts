@@ -1,3 +1,5 @@
+import { REPUTATION_REWARDS, getReputationLevel, type ReputationLog } from "@/lib/reputation";
+
 export type DemoProfile = {
   id: string;
   name: string;
@@ -6,10 +8,7 @@ export type DemoProfile = {
   bio: string;
   reputation: number;
   level: string;
-  reputationLogs: Array<{
-    label: string;
-    delta: number;
-  }>;
+  reputationLogs: ReputationLog[];
 };
 
 export type DemoPost = {
@@ -39,6 +38,13 @@ export type DemoPost = {
   };
 };
 
+function buildProfile(input: Omit<DemoProfile, "level">): DemoProfile {
+  return {
+    ...input,
+    level: getReputationLevel(input.reputation).title
+  };
+}
+
 export const homeTabs = [
   { label: "最新", value: "latest" },
   { label: "最热", value: "hot" },
@@ -52,33 +58,31 @@ export const homeCategories = [
 ];
 
 export const profiles: DemoProfile[] = [
-  {
+  buildProfile({
     id: "u1",
     name: "林昭",
     email: "linzhao@nju.edu.cn",
     department: "南京大学 · 计算机科学与技术系",
     bio: "专注把 AI 真实用进论文、实验报告和课程作业里。",
     reputation: 236,
-    level: "提效大师",
     reputationLogs: [
-      { label: "帖子被标记已复现", delta: 10 },
-      { label: "帖子获得点赞", delta: 6 },
-      { label: "每日签到", delta: 1 }
+      { label: "帖子被标记“已复现”", delta: REPUTATION_REWARDS.reproduced },
+      { label: "帖子获得 3 次点赞", delta: 3 * REPUTATION_REWARDS.engagement },
+      { label: "每日首次登录签到", delta: REPUTATION_REWARDS.dailyCheckIn }
     ]
-  },
-  {
+  }),
+  buildProfile({
     id: "u2",
     name: "周屿",
     email: "zhouyu@nju.edu.cn",
     department: "南京大学 · 新闻传播学院",
     bio: "关注 AI 在内容生产和校园传播中的使用体验。",
     reputation: 128,
-    level: "Prompt 猎人",
     reputationLogs: [
-      { label: "帖子获得点赞", delta: 4 },
-      { label: "帖子被收藏", delta: 2 }
+      { label: "帖子获得 2 次点赞", delta: 2 * REPUTATION_REWARDS.engagement },
+      { label: "帖子获得 1 次收藏", delta: REPUTATION_REWARDS.engagement }
     ]
-  }
+  })
 ];
 
 export const posts: DemoPost[] = [
@@ -94,7 +98,7 @@ export const posts: DemoPost[] = [
       id: "u1",
       name: "林昭",
       department: "计算机科学与技术系",
-      level: "提效大师"
+      level: getReputationLevel(236).title
     },
     stats: {
       likes: 86,
@@ -123,7 +127,7 @@ export const posts: DemoPost[] = [
       id: "u1",
       name: "林昭",
       department: "计算机科学与技术系",
-      level: "提效大师"
+      level: getReputationLevel(236).title
     },
     stats: {
       likes: 55,
@@ -152,7 +156,7 @@ export const posts: DemoPost[] = [
       id: "u2",
       name: "周屿",
       department: "新闻传播学院",
-      level: "Prompt 猎人"
+      level: getReputationLevel(128).title
     },
     stats: {
       likes: 37,

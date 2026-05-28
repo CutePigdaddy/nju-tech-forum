@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { PromptCard } from "@/components/prompt-card";
 import { PostActions } from "@/components/post-actions";
 import { PostComments } from "@/components/post-comments";
-import { posts } from "@/lib/mock-data";
+import { getDemoPostById } from "@/lib/demo-store";
 
 type PostDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -10,7 +10,7 @@ type PostDetailPageProps = {
 
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;
-  const post = posts.find((item) => item.id === id);
+  const post = getDemoPostById(id);
 
   if (!post) {
     notFound();

@@ -3,11 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { posts, profiles, type DemoPost, type DemoProfile } from "@/lib/mock-data";
 import {
+  getComputedPost,
+  getComputedProfile,
   getCreatedPosts,
   getDemoSession,
-  getProfileOverride,
   setProfileOverride
 } from "@/lib/demo-store";
+import { getReputationLevel } from "@/lib/reputation";
 
 type ProfileContentProps = {
   profileId: string;
@@ -30,13 +32,7 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
   );
 
   useEffect(() => {
-    const override = getProfileOverride(profileId);
-    const mergedProfile = override
-      ? {
-          ...profile,
-          ...override
-        }
-      : profile;
+    const mergedProfile = getComputedProfile(profileId);
 
     setProfileView(mergedProfile);
     setDraftName(mergedProfile.name);
@@ -46,22 +42,24 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
     const stored = getCreatedPosts().filter((item) => item.authorId === profileId);
 
     setCreatedPosts(
-      stored.map((item) => ({
-        id: item.id,
-        title: item.title,
-        excerpt: item.excerpt,
-        publishedAt: item.publishedAt,
-        category: item.category,
-        tags: item.tags,
-        author: {
-          id: mergedProfile.id,
-          name: mergedProfile.name,
-          department: mergedProfile.department,
-          level: mergedProfile.level
-        },
-        stats: item.stats,
-        promptCard: item.promptCard
-      }))
+      stored.map((item) =>
+        getComputedPost({
+          id: item.id,
+          title: item.title,
+          excerpt: item.excerpt,
+          publishedAt: item.publishedAt,
+          category: item.category,
+          tags: item.tags,
+          author: {
+            id: mergedProfile.id,
+            name: mergedProfile.name,
+            department: mergedProfile.department,
+            level: mergedProfile.level
+          },
+          stats: item.stats,
+          promptCard: item.promptCard
+        })
+      )
     );
     setCreatedCount(stored.length);
 
@@ -73,8 +71,11 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
     }
   }, [profile, profileId]);
 
-  const authoredPosts = posts.filter((post) => post.author.id === profile.id);
+  const authoredPosts = posts
+    .filter((post) => post.author.id === profile.id)
+    .map((post) => getComputedPost(post));
   const allPosts = [...createdPosts, ...authoredPosts];
+  const levelMeta = getReputationLevel(profileView?.reputation ?? 0);
 
   function handleSaveProfile() {
     if (!profileView) {
@@ -85,7 +86,8 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
       ...profileView,
       name: draftName.trim() || profileView.name,
       email: draftEmail.trim() || profileView.email,
-      bio: draftBio.trim() || profileView.bio
+      bio: draftBio.trim() || profileView.bio,
+      level: getReputationLevel(profileView.reputation).title
     };
 
     setProfileOverride(profileId, {
@@ -149,6 +151,10 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
               <p className="mt-2 text-sm font-medium text-[#5f6880]">{profileView.department}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">{profileView.bio}</p>
               <p className="mt-2 text-sm text-[#6f7592]">{profileView.email}</p>
+              <div className="mt-4 rounded-2xl border border-[#efe4be] bg-[linear-gradient(180deg,#fff9ea_0%,#fff5d9_100%)] px-4 py-3 text-sm text-[#8c6200] shadow-[0_10px_24px_rgba(255,196,74,0.12)]">
+                <div className="font-semibold">{profileView.level}</div>
+                <div className="mt-1 leading-6">{levelMeta.description}</div>
+              </div>
 
               <div className="mt-6 grid gap-3 md:grid-cols-3">
                 {statCards.map((card) => (
@@ -311,7 +317,7 @@ export function ProfileContent({ profileId }: ProfileContentProps) {
             近期声望变化
           </h2>
           <div className="mt-4 grid gap-4">
-            {profile.reputationLogs.map((item) => (
+            {profileView.reputationLogs.map((item) => (
               <div
                 key={`${item.label}-${item.delta}`}
                 className="flex items-center justify-between rounded-2xl border border-[#e6f0e8] bg-[linear-gradient(180deg,#ffffff_0%,#f7fcf8_100%)] p-4 shadow-[0_8px_18px_rgba(93,107,255,0.04)]"

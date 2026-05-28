@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addCreatedPost, getDemoSession } from "@/lib/demo-store";
+import { REPUTATION_REWARDS } from "@/lib/reputation";
 
 export function CreatePostForm() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export function CreatePostForm() {
     const session = getDemoSession();
     const authorId = session?.profileId ?? "u1";
 
-    addCreatedPost({
+    const reward = addCreatedPost({
       id: `local-${Date.now()}`,
       title,
       excerpt,
@@ -50,7 +51,11 @@ export function CreatePostForm() {
       }
     });
 
-    setMessage("帖子已发布，正在跳转到个人主页。");
+    const rewardText = reward
+      ? ` 发布成功，获得 +${REPUTATION_REWARDS.publishPost} 声望，当前等级为 ${reward.level}。`
+      : " 帖子已发布。";
+
+    setMessage(`帖子已发布，正在跳转到个人主页。${rewardText}`);
     router.push(`/profile/${authorId}`);
   }
 

@@ -11,6 +11,7 @@ import {
   type DemoPost
 } from "@/lib/mock-data";
 import { PostCard } from "@/components/post-card";
+import { getComputedPosts } from "@/lib/demo-store";
 
 function sortPosts(input: DemoPost[], tab: string) {
   if (tab === "hot") {
@@ -29,9 +30,10 @@ export function HomeFeed() {
   const search = searchParams.get("q")?.trim() ?? "";
   const [activeTab, setActiveTab] = useState("latest");
   const [activeCategory, setActiveCategory] = useState("学术提效");
+  const feedPosts = useMemo(() => getComputedPosts(posts), []);
 
   const visiblePosts = useMemo(() => {
-    const filteredByCategory = posts.filter((post) => post.category === activeCategory);
+    const filteredByCategory = feedPosts.filter((post) => post.category === activeCategory);
     const filteredBySearch = search
       ? filteredByCategory.filter((post) => {
           const haystack = `${post.title} ${post.excerpt} ${post.tags.join(" ")}`.toLowerCase();
@@ -40,7 +42,7 @@ export function HomeFeed() {
       : filteredByCategory;
 
     return sortPosts(filteredBySearch, activeTab);
-  }, [activeCategory, activeTab, search]);
+  }, [activeCategory, activeTab, feedPosts, search]);
 
   return (
     <div className="flex flex-col gap-8 lg:flex-row">

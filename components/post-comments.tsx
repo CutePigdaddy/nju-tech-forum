@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { profiles } from "@/lib/mock-data";
 import {
   addPostComment,
+  getComputedProfile,
   getDemoSession,
   getPostComments,
-  getProfileOverride,
   type DemoComment
 } from "@/lib/demo-store";
 
@@ -26,13 +25,7 @@ export function PostComments({ postId }: PostCommentsProps) {
   const currentProfile = useMemo(() => {
     const session = getDemoSession();
     const currentId = session?.profileId ?? "u1";
-    const base = profiles.find((item) => item.id === currentId) ?? profiles[0];
-    const override = getProfileOverride(currentId);
-
-    return {
-      ...base,
-      ...(override ?? {})
-    };
+    return getComputedProfile(currentId);
   }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

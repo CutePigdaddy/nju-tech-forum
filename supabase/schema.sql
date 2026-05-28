@@ -5,7 +5,18 @@ create table if not exists profiles (
   department text,
   bio text,
   reputation integer not null default 0,
-  level text not null default 'AI 新手',
+  level text not null default '魔法学徒',
+  created_at timestamptz not null default now()
+);
+
+alter table profiles
+  add column if not exists last_check_in_date date;
+
+create table if not exists reputation_logs (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  reason text not null,
+  delta integer not null,
   created_at timestamptz not null default now()
 );
 

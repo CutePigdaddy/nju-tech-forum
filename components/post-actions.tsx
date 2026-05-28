@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import {
   getStoredPostActions,
   getStoredPostStats,
+  rewardPostAuthor,
   setStoredPostActions,
   setStoredPostStats,
   type DemoPostActionState
 } from "@/lib/demo-store";
+import { REPUTATION_REWARDS } from "@/lib/reputation";
 
 type PostActionsProps = {
   postId: string;
@@ -62,7 +64,22 @@ export function PostActions({ postId, initialStats }: PostActionsProps) {
     setActionState(nextActions);
     setStoredPostStats(postId, next);
     setStoredPostActions(postId, nextActions);
-    setFeedbackMessage(label);
+    const reward =
+      actionKey === "liked"
+        ? rewardPostAuthor(postId, "liked")
+        : actionKey === "reproduced"
+          ? rewardPostAuthor(postId, "reproduced")
+          : rewardPostAuthor(postId, "favorited");
+
+    const rewardMessage = reward
+      ? `，作者 ${reward.authorName} 获得 +${
+          actionKey === "reproduced"
+            ? REPUTATION_REWARDS.reproduced
+            : REPUTATION_REWARDS.engagement
+        } 声望`
+      : "";
+
+    setFeedbackMessage(`${label}${rewardMessage}`);
     window.setTimeout(() => setFeedbackMessage(null), 1400);
   }
 

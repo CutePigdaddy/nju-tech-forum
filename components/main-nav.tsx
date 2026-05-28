@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { clearDemoSession, getDemoSession, getProfileOverride } from "@/lib/demo-store";
-import { profiles } from "@/lib/mock-data";
+import { clearDemoSession, getComputedProfile, getDemoSession } from "@/lib/demo-store";
 
 export function MainNav() {
   const router = useRouter();
@@ -25,13 +24,12 @@ export function MainNav() {
       return;
     }
 
-    const baseProfile = profiles.find((item) => item.id === session.profileId) ?? profiles[0];
-    const override = getProfileOverride(session.profileId);
-    const currentName = (override?.name || baseProfile.name).trim();
+    const profile = getComputedProfile(session.profileId);
+    const currentName = profile.name.trim();
 
     setProfileId(session.profileId);
     setProfileInitial(currentName.slice(0, 1));
-    setProfileName(currentName);
+    setProfileName(`${currentName} · ${profile.level}`);
     setIsLoggedIn(true);
   }, [searchParams]);
 

@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { profiles } from "@/lib/mock-data";
-import { clearDemoSession, getDemoSession, getProfileOverride, setDemoSession } from "@/lib/demo-store";
+import {
+  clearDemoSession,
+  getComputedProfile,
+  getDemoSession,
+  getProfileOverride,
+  setDemoSession
+} from "@/lib/demo-store";
 import { DemoSessionPanel } from "@/components/demo-session-panel";
 
 type AuthStatus = "idle" | "error" | "success";
@@ -50,11 +56,16 @@ export function AuthForm() {
     const baseProfile = profiles.find((item) => item.id === profileId) ?? profiles[0];
     const override = getProfileOverride(profileId);
     const nextName = override?.name || baseProfile.name;
+    const checkInReward = setDemoSession({ profileId });
+    const nextProfile = getComputedProfile(profileId);
 
-    setDemoSession({ profileId });
     setCurrentSessionName(nextName);
     setStatus("success");
-    setMessage(`欢迎回来，${nextName}。正在进入你的个人主页...`);
+    setMessage(
+      checkInReward
+        ? `欢迎回来，${nextName}。今日签到 +${checkInReward.delta} 声望，当前等级 ${nextProfile.level}，正在进入你的个人主页...`
+        : `欢迎回来，${nextName}。当前等级 ${nextProfile.level}，正在进入你的个人主页...`
+    );
     redirectTimeoutRef.current = setTimeout(() => {
       router.push(`/profile/${profileId}`);
       router.refresh();

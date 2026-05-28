@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { clearDemoSession, getDemoSession, getProfileOverride } from "@/lib/demo-store";
-import { profiles } from "@/lib/mock-data";
+import { clearDemoSession, getComputedProfile, getDemoSession } from "@/lib/demo-store";
 
 export function DemoSessionPanel() {
   const router = useRouter();
@@ -17,9 +16,8 @@ export function DemoSessionPanel() {
       return;
     }
 
-    const baseProfile = profiles.find((item) => item.id === session.profileId) ?? profiles[0];
-    const override = getProfileOverride(session.profileId);
-    setCurrentUserLabel(override?.name || baseProfile.name);
+    const profile = getComputedProfile(session.profileId);
+    setCurrentUserLabel(`${profile.name} · ${profile.level}`);
   }, []);
 
   function handleLogout() {
