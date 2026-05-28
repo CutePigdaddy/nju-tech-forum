@@ -17,7 +17,7 @@ export function DemoSessionPanel() {
     }
 
     const profile = getComputedProfile(session.profileId);
-    setCurrentUserLabel(`${profile.name} · ${profile.level}`);
+    setCurrentUserLabel(`${profile.email} · ${profile.nickname} · ${profile.level}`);
   }, []);
 
   function handleLogout() {

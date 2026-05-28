@@ -12,6 +12,7 @@ export function MainNav() {
   const [profileId, setProfileId] = useState<string | null>(null);
   const [profileInitial, setProfileInitial] = useState("");
   const [profileName, setProfileName] = useState("");
+  const [profileAvatar, setProfileAvatar] = useState<null | { type: "image" | "library"; value: string }>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -20,16 +21,18 @@ export function MainNav() {
       setProfileId(null);
       setProfileInitial("");
       setProfileName("");
+      setProfileAvatar(null);
       setIsLoggedIn(false);
       return;
     }
 
     const profile = getComputedProfile(session.profileId);
-    const currentName = profile.name.trim();
+    const currentName = profile.nickname.trim() || profile.name.trim();
 
     setProfileId(session.profileId);
     setProfileInitial(currentName.slice(0, 1));
     setProfileName(`${currentName} · ${profile.level}`);
+    setProfileAvatar({ type: profile.avatarType, value: profile.avatarUrl });
     setIsLoggedIn(true);
   }, [searchParams]);
 
@@ -47,6 +50,7 @@ export function MainNav() {
     setProfileId(null);
     setProfileInitial("");
     setProfileName("");
+    setProfileAvatar(null);
     router.refresh();
     router.push("/auth");
   }
@@ -108,7 +112,11 @@ export function MainNav() {
               aria-label="进入个人主页"
               className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white bg-[linear-gradient(135deg,#f1eeff_0%,#e5edff_100%)] text-sm font-bold text-[var(--primary-deep)] shadow-[0_8px_18px_rgba(93,107,255,0.05)] transition hover:scale-[1.02]"
             >
-              {profileInitial}
+              {profileAvatar?.type === "image" ? (
+                <img src={profileAvatar.value} alt="头像" className="h-full w-full object-cover" />
+              ) : (
+                profileInitial
+              )}
             </Link>
           ) : null}
           {isLoggedIn ? (

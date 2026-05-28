@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { profiles } from "@/lib/mock-data";
 import {
   clearDemoSession,
   getComputedProfile,
   getDemoSession,
-  getProfileOverride,
   setDemoSession
 } from "@/lib/demo-store";
+import { profiles } from "@/lib/mock-data";
 import { DemoSessionPanel } from "@/components/demo-session-panel";
 
 type AuthStatus = "idle" | "error" | "success";
@@ -29,9 +28,8 @@ export function AuthForm() {
     if (!session) {
       setCurrentSessionName(null);
     } else {
-      const baseProfile = profiles.find((item) => item.id === session.profileId) ?? profiles[0];
-      const override = getProfileOverride(session.profileId);
-      setCurrentSessionName(override?.name || baseProfile.name);
+      const profile = getComputedProfile(session.profileId);
+      setCurrentSessionName(profile.email);
     }
 
     return () => {
@@ -53,18 +51,15 @@ export function AuthForm() {
   function beginLogin(profileId: string) {
     clearPendingRedirect();
 
-    const baseProfile = profiles.find((item) => item.id === profileId) ?? profiles[0];
-    const override = getProfileOverride(profileId);
-    const nextName = override?.name || baseProfile.name;
     const checkInReward = setDemoSession({ profileId });
     const nextProfile = getComputedProfile(profileId);
 
-    setCurrentSessionName(nextName);
+    setCurrentSessionName(nextProfile.email);
     setStatus("success");
     setMessage(
       checkInReward
-        ? `欢迎回来，${nextName}。今日签到 +${checkInReward.delta} 声望，当前等级 ${nextProfile.level}，正在进入你的个人主页...`
-        : `欢迎回来，${nextName}。当前等级 ${nextProfile.level}，正在进入你的个人主页...`
+        ? `欢迎回来，${nextProfile.nickname}。今日签到 +${checkInReward.delta} 声望，当前等级 ${nextProfile.level}，正在进入你的个人主页...`
+        : `欢迎回来，${nextProfile.nickname}。当前等级 ${nextProfile.level}，正在进入你的个人主页...`
     );
     redirectTimeoutRef.current = setTimeout(() => {
       router.push(`/profile/${profileId}`);
@@ -77,17 +72,20 @@ export function AuthForm() {
 
     if (!account || !password) {
       setStatus("error");
-      setMessage("请输入账号和密码后再继续。");
+      setMessage("请输入 NJU 邮箱和密码后再继续。");
       return;
     }
 
-    if (account !== "1" || password !== "1") {
+    const normalizedAccount = account.trim().toLowerCase();
+    const matchedProfile = profiles.find((item) => item.email.toLowerCase() === normalizedAccount);
+
+    if (!matchedProfile || !normalizedAccount.endsWith("@nju.edu.cn") || password !== "1") {
       setStatus("error");
-      setMessage("账号或密码不正确，请输入账号 1 和密码 1。");
+      setMessage("邮箱或密码不正确。当前演示环境请使用资料中已有的 `@nju.edu.cn` 邮箱，密码输入 1。");
       return;
     }
 
-    beginLogin("u1");
+    beginLogin(matchedProfile.id);
   }
 
   function handleReset() {
@@ -116,26 +114,26 @@ export function AuthForm() {
     <div className="p-8 md:p-10">
       <h2 className="text-2xl font-bold">登录账号</h2>
       <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-        输入账号后即可进入社区，继续浏览内容、发布经验并参与互动。
+        使用 `@nju.edu.cn` 邮箱登录即可进入社区，继续浏览内容、发布经验并参与互动。
       </p>
 
       <DemoSessionPanel />
 
       <div className="mt-6 rounded-[28px] border border-[var(--border)] bg-[linear-gradient(180deg,#ffffff_0%,#fbfbff_100%)] p-5 shadow-[0_14px_28px_rgba(93,107,255,0.05)]">
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-soft)] px-4 py-3 text-sm text-[var(--muted)]">
-          测试账号：<span className="font-semibold text-[var(--foreground)]">1</span>
+          测试邮箱：<span className="font-semibold text-[var(--foreground)]">linzhao@nju.edu.cn</span>
           <span className="mx-2 text-[var(--border)]">/</span>
-          测试密码：<span className="font-semibold text-[var(--foreground)]">1</span>
+          演示密码：<span className="font-semibold text-[var(--foreground)]">1</span>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-6 grid gap-5">
           <label className="grid gap-2 text-sm font-medium">
             <div className="flex items-center justify-between gap-3">
               <span>账号</span>
-              <span className="text-xs font-medium text-[var(--muted)]">当前开放测试账号 1</span>
+              <span className="text-xs font-medium text-[var(--muted)]">请输入已登记的 NJU 邮箱</span>
             </div>
             <input
-              type="text"
+              type="email"
               value={account}
               onChange={(event) => {
                 setAccount(event.target.value);
@@ -144,7 +142,7 @@ export function AuthForm() {
                   setMessage("");
                 }
               }}
-              placeholder="请输入账号"
+              placeholder="例如：linzhao@nju.edu.cn"
               disabled={isRedirecting}
               className={inputClassName}
             />
@@ -153,7 +151,7 @@ export function AuthForm() {
           <label className="grid gap-2 text-sm font-medium">
             <div className="flex items-center justify-between gap-3">
               <span>密码</span>
-              <span className="text-xs font-medium text-[var(--muted)]">输入 1 即可登录</span>
+              <span className="text-xs font-medium text-[var(--muted)]">演示环境统一输入 1</span>
             </div>
             <input
               type="password"

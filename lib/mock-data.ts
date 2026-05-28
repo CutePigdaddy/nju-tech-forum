@@ -1,3 +1,13 @@
+import {
+  DEFAULT_AVATAR_LIBRARY,
+  type DegreeLevelOption,
+  type DepartmentOption,
+  type GenderOption,
+  type PrimaryAiToolOption,
+  type ProfileVisibilityOption,
+  type SkillFocusOption,
+  type WorkflowAppOption
+} from "@/lib/profile-config";
 import { REPUTATION_REWARDS, getReputationLevel, type ReputationLog } from "@/lib/reputation";
 
 export type DemoProfile = {
@@ -9,6 +19,25 @@ export type DemoProfile = {
   reputation: number;
   level: string;
   reputationLogs: ReputationLog[];
+  avatarType: "image" | "library";
+  avatarUrl: string;
+  nickname: string;
+  tagline: string;
+  gender: GenderOption;
+  genderCustom: string;
+  degreeLevel: DegreeLevelOption;
+  academicDepartment: DepartmentOption;
+  enrollmentYear: string;
+  primaryAiTools: PrimaryAiToolOption[];
+  workflowApps: WorkflowAppOption[];
+  skillFocus: SkillFocusOption[];
+  githubUrl: string;
+  academicUrl: string;
+  profileVisibility: ProfileVisibilityOption;
+  showRealName: boolean;
+  notifyReproduced: boolean;
+  notifyLiked: boolean;
+  notifyCommented: boolean;
 };
 
 export type DemoPost = {
@@ -69,7 +98,26 @@ export const profiles: DemoProfile[] = [
       { label: "帖子被标记“已复现”", delta: REPUTATION_REWARDS.reproduced },
       { label: "帖子获得 3 次点赞", delta: 3 * REPUTATION_REWARDS.engagement },
       { label: "每日首次登录签到", delta: REPUTATION_REWARDS.dailyCheckIn }
-    ]
+    ],
+    avatarType: "library",
+    avatarUrl: DEFAULT_AVATAR_LIBRARY[0].id,
+    nickname: "昭昭会写咒语",
+    tagline: "把 Prompt 打磨成能复现的校园魔法。",
+    gender: "保密",
+    genderCustom: "",
+    degreeLevel: "本科生",
+    academicDepartment: "计算机科学与技术系",
+    enrollmentYear: "2023级",
+    primaryAiTools: ["ChatGPT", "Claude 3.5", "DeepSeek-V3", "Cursor"],
+    workflowApps: ["VS Code", "Python", "Overleaf", "Obsidian"],
+    skillFocus: ["学术科研提效", "全栈代码开发", "提示词工程"],
+    githubUrl: "https://github.com/linzhao-nju",
+    academicUrl: "",
+    profileVisibility: "所有人可见",
+    showRealName: false,
+    notifyReproduced: true,
+    notifyLiked: true,
+    notifyCommented: true
   }),
   buildProfile({
     id: "u2",
@@ -81,7 +129,26 @@ export const profiles: DemoProfile[] = [
     reputationLogs: [
       { label: "帖子获得 2 次点赞", delta: 2 * REPUTATION_REWARDS.engagement },
       { label: "帖子获得 1 次收藏", delta: REPUTATION_REWARDS.engagement }
-    ]
+    ],
+    avatarType: "library",
+    avatarUrl: DEFAULT_AVATAR_LIBRARY[2].id,
+    nickname: "周周有灵感",
+    tagline: "把校园内容生产流程做得更轻盈。",
+    gender: "女",
+    genderCustom: "",
+    degreeLevel: "硕士研究生",
+    academicDepartment: "新闻传播学院",
+    enrollmentYear: "2022级",
+    primaryAiTools: ["Kimi", "Midjourney", "ChatGPT"],
+    workflowApps: ["Notion", "Figma", "Obsidian"],
+    skillFocus: ["内容创作设计", "论文润色翻译"],
+    githubUrl: "",
+    academicUrl: "https://scholar.google.com/",
+    profileVisibility: "仅登录的本校师生可见",
+    showRealName: true,
+    notifyReproduced: true,
+    notifyLiked: true,
+    notifyCommented: false
   })
 ];
 
@@ -111,8 +178,7 @@ export const posts: DemoPost[] = [
       model: "DeepSeek / Claude / 通用大模型",
       prompt:
         "你是我的实验报告助教。请根据我提供的实验目的、实验步骤、原始结果和课程要求，输出一篇结构完整、语言正式的实验报告。必须包含：实验目的、实验原理、实验步骤、结果分析、结论。对结果分析部分要结合数据变化给出解释，不要凭空编造。",
-      notes:
-        "建议搭配你自己的原始实验数据一起输入，效果会比空口要求更稳。"
+      notes: "建议搭配你自己的原始实验数据一起输入，效果会比空口要求更稳。"
     }
   },
   {
@@ -140,8 +206,7 @@ export const posts: DemoPost[] = [
       model: "Claude / ChatGPT",
       prompt:
         "你是严谨的算法课助教。请不要直接重写我的代码，而是先完成 3 件事：1. 找出潜在 bug 或边界条件问题；2. 评估时间复杂度与空间复杂度；3. 给出最值得修改的 3 条建议，并解释原因。",
-      notes:
-        "更适合搭配一段真实代码一起使用，这样模型给出的建议会更具体。"
+      notes: "更适合搭配一段真实代码一起使用，这样模型给出的建议会更具体。"
     }
   },
   {
@@ -169,8 +234,7 @@ export const posts: DemoPost[] = [
       model: "Midjourney / 即梦 / 通用绘图模型",
       prompt:
         "Design a modern university event poster, clean composition, strong visual hierarchy, academic yet youthful, white and blue color palette, Chinese campus atmosphere, high readability, premium typography feel.",
-      notes:
-        "重点是先把信息层级想清楚，Prompt 只是把你的视觉方向翻译给模型。"
+      notes: "重点是先把信息层级想清楚，Prompt 只是把你的视觉方向翻译给模型。"
     }
   }
 ];

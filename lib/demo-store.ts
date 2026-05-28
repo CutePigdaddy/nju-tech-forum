@@ -44,7 +44,10 @@ export type DemoPostActionState = {
   favorited: boolean;
 };
 
-export type DemoProfileOverride = Pick<DemoProfile, "name" | "email" | "bio">;
+export type DemoProfileOverride = Omit<
+  DemoProfile,
+  "id" | "reputation" | "level" | "reputationLogs"
+>;
 
 export type DemoComment = {
   id: string;
@@ -370,10 +373,13 @@ export function getComputedProfile(profileId: string): DemoProfile {
   const base = getBaseProfile(profileId);
   const override = getProfileOverride(profileId);
   const reputationState = getStoredReputationState(profileId);
+  const displayName = override?.showRealName ? override.name : override?.nickname || override?.name;
+  const fallbackName = base.showRealName ? base.name : base.nickname || base.name;
 
   return {
     ...base,
     ...(override ?? {}),
+    name: displayName || fallbackName,
     reputation: reputationState.reputation,
     level: getReputationLevel(reputationState.reputation).title,
     reputationLogs: reputationState.logs
